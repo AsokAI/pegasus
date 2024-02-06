@@ -2,6 +2,11 @@ from enum import Enum
 
 from transformers import (
     AutoModel,
+    AutoBackbone,
+    AutoConfig,
+    AutoTokenizer,
+    AutoFeatureExtractor,
+    AutoImageProcessor,
     AutoModelForAudioClassification,
     AutoModelForAudioFrameClassification,
     AutoModelForAudioXVector,
@@ -76,5 +81,29 @@ class Task(Enum):
     ZeroShotObjectDetection = AutoModelForZeroShotObjectDetection
 
 
-def load_checkpoint(model_id: str, task: Task, **kwargs) -> AutoModel:
-    return task.value.from_pretrained(model_id, **kwargs)
+def load_model(repo_id: str, task: Task, **kwargs) -> AutoModel:
+    return task.value.from_pretrained(repo_id, **kwargs)
+
+
+def load_backbone(repo_id: str, **kwargs) -> AutoBackbone:
+    return AutoBackbone.from_pretrained(repo_id, **kwargs)
+
+
+def load_config(repo_id: str, **kwargs):
+    return AutoConfig.from_pretrained(repo_id, **kwargs)
+
+
+def load_tokenizer(repo_id: str, **kwargs):
+    return AutoTokenizer.from_pretrained(repo_id, **kwargs)
+
+
+def load_auto_feature_extractor(repo_id: str, **kwargs):
+    return AutoFeatureExtractor.from_pretrained(repo_id, **kwargs)
+
+
+def load_auto_image_processor(repo_id: str, **kwargs):
+    return AutoImageProcessor.from_pretrained(repo_id, **kwargs)
+
+
+def load_processor(repo_id: str, **kwargs):
+    return AutoFeatureExtractor.from_pretrained(repo_id, **kwargs)
