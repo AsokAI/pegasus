@@ -7,6 +7,7 @@ from transformers import (
     AutoTokenizer,
     AutoFeatureExtractor,
     AutoImageProcessor,
+    AutoProcessor,
     AutoModelForAudioClassification,
     AutoModelForAudioFrameClassification,
     AutoModelForAudioXVector,
@@ -41,7 +42,10 @@ from transformers import (
     AutoModelForVisualQuestionAnswering,
     AutoModelForZeroShotImageClassification,
     AutoModelForZeroShotObjectDetection,
+    GenerationConfig,
+    pipeline,
 )
+from transformers.pipelines.base import Pipeline
 
 
 class Task(Enum):
@@ -89,21 +93,29 @@ def load_backbone(repo_id: str, **kwargs) -> AutoBackbone:
     return AutoBackbone.from_pretrained(repo_id, **kwargs)
 
 
-def load_config(repo_id: str, **kwargs):
+def load_config(repo_id: str, **kwargs) -> AutoConfig:
     return AutoConfig.from_pretrained(repo_id, **kwargs)
 
 
-def load_tokenizer(repo_id: str, **kwargs):
+def load_tokenizer(repo_id: str, **kwargs) -> AutoTokenizer:
     return AutoTokenizer.from_pretrained(repo_id, **kwargs)
 
 
-def load_auto_feature_extractor(repo_id: str, **kwargs):
+def load_auto_feature_extractor(repo_id: str, **kwargs) -> AutoFeatureExtractor:
     return AutoFeatureExtractor.from_pretrained(repo_id, **kwargs)
 
 
-def load_auto_image_processor(repo_id: str, **kwargs):
+def load_auto_image_processor(repo_id: str, **kwargs) -> AutoImageProcessor:
     return AutoImageProcessor.from_pretrained(repo_id, **kwargs)
 
 
-def load_processor(repo_id: str, **kwargs):
-    return AutoFeatureExtractor.from_pretrained(repo_id, **kwargs)
+def load_processor(repo_id: str, **kwargs) -> AutoProcessor:
+    return AutoProcessor.from_pretrained(repo_id, **kwargs)
+
+
+def load_generation_config(repo_id: str, **kwargs) -> GenerationConfig:
+    return GenerationConfig.from_pretrained(repo_id, **kwargs)
+
+
+def load_pipeline(repo_id: str, **kwargs) -> Pipeline:
+    return pipeline(repo_id, **kwargs)
