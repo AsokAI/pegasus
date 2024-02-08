@@ -7,30 +7,54 @@ import numpy
 from datasets import DatasetDict
 
 
+def enter(dataset: DatasetDict) -> None:
+	return dataset.__enter__()
+
+
+def exit(dataset: DatasetDict, exc_type, exc_val, exc_tb) -> None:
+	return dataset.__exit__(exc_type, exc_val, exc_tb)
+
+
+def getitem(dataset: DatasetDict, k) -> datasets.arrow_dataset.Dataset:
+	return dataset.__getitem__(k)
+
+
+def repr(dataset: DatasetDict) -> None:
+	return dataset.__repr__()
+
+
+def checkvaluesfeatures(dataset: DatasetDict) -> None:
+	return dataset._check_values_features()
+
+
+def checkvaluestype(dataset: DatasetDict) -> None:
+	return dataset._check_values_type()
+
+
 def align_labels_with_mapping(
     dataset: DatasetDict, label2id: Dict, label_column: str
 ) -> "DatasetDict":
-    return dataset.align_labels_with_mapping(dataset, label2id, label_column)
+    return dataset.align_labels_with_mapping(label2id, label_column)
 
 
 def cast(
     dataset: DatasetDict, features: datasets.features.features.Features
 ) -> "DatasetDict":
-    return dataset.cast(dataset, features)
+    return dataset.cast(features)
 
 
 def cast_column(dataset: DatasetDict, column: str, feature) -> "DatasetDict":
-    return dataset.cast_column(dataset, column, feature)
+    return dataset.cast_column(column, feature)
 
 
 def class_encode_column(
     dataset: DatasetDict, column: str, include_nulls: bool = False
 ) -> "DatasetDict":
-    return dataset.class_encode_column(dataset, column, include_nulls)
+    return dataset.class_encode_column(column, include_nulls)
 
 
 def cleanup_cache_files(dataset: DatasetDict) -> Dict[str, int]:
-    return dataset.cleanup_cache_files(dataset)
+    return dataset.cleanup_cache_files()
 
 
 def filter(
@@ -49,7 +73,6 @@ def filter(
     desc: Optional[str] = None,
 ) -> "DatasetDict":
     return dataset.filter(
-        dataset,
         function,
         with_indices,
         input_columns,
@@ -66,7 +89,7 @@ def filter(
 
 
 def flatten(dataset: DatasetDict, max_depth=16) -> "DatasetDict":
-    return dataset.flatten(dataset, max_depth)
+    return dataset.flatten(max_depth)
 
 
 def flatten_indices(
@@ -80,7 +103,6 @@ def flatten_indices(
     new_fingerprint: Optional[str] = None,
 ) -> "DatasetDict":
     return dataset.flatten_indices(
-        dataset,
         keep_in_memory,
         cache_file_names,
         writer_batch_size,
@@ -98,15 +120,13 @@ def formatted_as(
     output_all_columns: bool = False,
     **format_kwargs
 ) -> None:
-    return dataset.formatted_as(
-        dataset, type, columns, output_all_columns, format_kwargs
-    )
+    return dataset.formatted_as(type, columns, output_all_columns, format_kwargs)
 
 
 def from_csv(
     dataset: DatasetDict,
     path_or_paths: Dict,
-    features: Optional[datasets.features.features.Features],
+    features: Optional[datasets.Features],
     cache_dir: str,
     keep_in_memory: bool,
     kwargs,
@@ -117,7 +137,7 @@ def from_csv(
 def from_json(
     dataset: DatasetDict,
     path_or_paths: Dict,
-    features: Optional[datasets.features.features.Features],
+    features: Optional[datasets.Features],
     cache_dir: str,
     keep_in_memory: bool,
     kwargs,
@@ -128,7 +148,7 @@ def from_json(
 def from_parquet(
     dataset: DatasetDict,
     path_or_paths: Dict,
-    features: Optional[datasets.features.features.Features],
+    features: Optional[datasets.Features],
     cache_dir: str,
     keep_in_memory: bool,
     columns: Optional[List[str]],
@@ -142,7 +162,7 @@ def from_parquet(
 def from_text(
     dataset: DatasetDict,
     path_or_paths: Dict,
-    features: Optional[datasets.features.features.Features],
+    features: Optional[datasets.Features],
     cache_dir: str,
     keep_in_memory: bool,
     kwargs,
@@ -152,10 +172,10 @@ def from_text(
 
 def load_from_disk(
     dataset: DatasetDict,
-    dataset_dict_path: str,
-    fs: Any,
+    dataset_dict_path: Union[str, bytes, os.PathLike],
+    fs,
     keep_in_memory: Optional[bool],
-    storage_options: Optional[bool],
+    storage_options: Optional[Dict],
 ):
     return dataset.load_from_disk(
         dataset_dict_path, fs, keep_in_memory, storage_options
@@ -183,7 +203,6 @@ def map(
     desc: Optional[str] = None,
 ) -> "DatasetDict":
     return dataset.map(
-        dataset,
         function,
         with_indices,
         with_rank,
@@ -209,7 +228,7 @@ def prepare_for_task(
     task: Union[str, datasets.tasks.base.TaskTemplate],
     id: int = 0,
 ) -> "DatasetDict":
-    return dataset.prepare_for_task(dataset, task, id)
+    return dataset.prepare_for_task(task, id)
 
 
 def push_to_hub(
@@ -229,7 +248,6 @@ def push_to_hub(
     embed_external_files: bool = True,
 ) -> huggingface_hub.hf_api.CommitInfo:
     return dataset.push_to_hub(
-        dataset,
         repo_id,
         config_name,
         set_default,
@@ -249,23 +267,23 @@ def push_to_hub(
 def remove_columns(
     dataset: DatasetDict, column_names: Union[str, List[str]]
 ) -> "DatasetDict":
-    return dataset.remove_columns(dataset, column_names)
+    return dataset.remove_columns(column_names)
 
 
 def rename_column(
     dataset: DatasetDict, original_column_name: str, new_column_name: str
 ) -> "DatasetDict":
-    return dataset.rename_column(dataset, original_column_name, new_column_name)
+    return dataset.rename_column(original_column_name, new_column_name)
 
 
 def rename_columns(
     dataset: DatasetDict, column_mapping: Dict[str, str]
 ) -> "DatasetDict":
-    return dataset.rename_columns(dataset, column_mapping)
+    return dataset.rename_columns(column_mapping)
 
 
 def reset_format(dataset: DatasetDict) -> None:
-    return dataset.reset_format(dataset)
+    return dataset.reset_format()
 
 
 def save_to_disk(
@@ -278,20 +296,14 @@ def save_to_disk(
     storage_options: Optional[dict] = None,
 ) -> None:
     return dataset.save_to_disk(
-        dataset,
-        dataset_dict_path,
-        fs,
-        max_shard_size,
-        num_shards,
-        num_proc,
-        storage_options,
+        dataset_dict_path, fs, max_shard_size, num_shards, num_proc, storage_options
     )
 
 
 def select_columns(
     dataset: DatasetDict, column_names: Union[str, List[str]]
 ) -> "DatasetDict":
-    return dataset.select_columns(dataset, column_names)
+    return dataset.select_columns(column_names)
 
 
 def set_format(
@@ -301,7 +313,7 @@ def set_format(
     output_all_columns: bool = False,
     **format_kwargs
 ) -> None:
-    return dataset.set_format(dataset, type, columns, output_all_columns, format_kwargs)
+    return dataset.set_format(type, columns, output_all_columns, format_kwargs)
 
 
 def set_transform(
@@ -310,7 +322,7 @@ def set_transform(
     columns: Optional[List] = None,
     output_all_columns: bool = False,
 ) -> None:
-    return dataset.set_transform(dataset, transform, columns, output_all_columns)
+    return dataset.set_transform(transform, columns, output_all_columns)
 
 
 def shuffle(
@@ -324,7 +336,6 @@ def shuffle(
     writer_batch_size: Optional[int] = 1000,
 ) -> "DatasetDict":
     return dataset.shuffle(
-        dataset,
         seeds,
         seed,
         generators,
@@ -347,7 +358,6 @@ def sort(
     writer_batch_size: Optional[int] = 1000,
 ) -> "DatasetDict":
     return dataset.sort(
-        dataset,
         column_names,
         reverse,
         kind,
@@ -360,7 +370,7 @@ def sort(
 
 
 def unique(dataset: DatasetDict, column: str) -> Dict[str, List]:
-    return dataset.unique(dataset, column)
+    return dataset.unique(column)
 
 
 def with_format(
@@ -370,9 +380,7 @@ def with_format(
     output_all_columns: bool = False,
     **format_kwargs
 ) -> "DatasetDict":
-    return dataset.with_format(
-        dataset, type, columns, output_all_columns, format_kwargs
-    )
+    return dataset.with_format(type, columns, output_all_columns, format_kwargs)
 
 
 def with_transform(
@@ -381,4 +389,4 @@ def with_transform(
     columns: Optional[List] = None,
     output_all_columns: bool = False,
 ) -> "DatasetDict":
-    return dataset.with_transform(dataset, transform, columns, output_all_columns)
+    return dataset.with_transform(transform, columns, output_all_columns)

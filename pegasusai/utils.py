@@ -4,7 +4,7 @@ from typing import Optional
 from datasets import DatasetDict
 
 
-def generate_map_functions_from_class(
+def generate_pure_functions_from_class(
     class_type,
     object_name: str,
     ignore_protected_functions: bool = True,
@@ -17,6 +17,7 @@ def generate_map_functions_from_class(
         ):
             if ignore_protected_functions and name.startswith("_"):
                 continue
+            clean_function_name = name.replace("_", "")
             function_signature = inspect.signature(obj)
             function_signature_str = function_signature.__str__()
             if "self" in function_signature_str:
@@ -42,7 +43,7 @@ def generate_map_functions_from_class(
                     + function_signature_str
                     + ")"
                 )
-            mapped_code += "def " + name + function_signature_str
+            mapped_code += "def " + clean_function_name + function_signature_str
             mapped_code += (
                 " -> None:\n\t"
                 if function_signature.return_annotation == inspect._empty
@@ -52,7 +53,8 @@ def generate_map_functions_from_class(
             code_inside_function = (
                 f"return {object_name}.{name}(" + ", ".join(param_names) + ")\n\n\n"
             )
-            code_inside_function = code_inside_function.replace("self", object_name)
+            code_inside_function = code_inside_function.replace("self, ", "")
+            code_inside_function = code_inside_function.replace("self", "")
             mapped_code += code_inside_function
     mapped_code = mapped_code.replace("NoneType", "None")
     return mapped_code
