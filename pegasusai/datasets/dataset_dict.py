@@ -7,28 +7,28 @@ import numpy
 from datasets import DatasetDict
 
 
-def enter(dataset: DatasetDict) -> None:
-	return dataset.__enter__()
+def __enter__(dataset: DatasetDict) -> None:
+    return dataset.__enter__()
 
 
-def exit(dataset: DatasetDict, exc_type, exc_val, exc_tb) -> None:
-	return dataset.__exit__(exc_type, exc_val, exc_tb)
+def __exit__(dataset: DatasetDict, exc_type, exc_val, exc_tb) -> None:
+    return dataset.__exit__(exc_type, exc_val, exc_tb)
 
 
-def getitem(dataset: DatasetDict, k) -> datasets.arrow_dataset.Dataset:
-	return dataset.__getitem__(k)
+def __getitem__(dataset: DatasetDict, k) -> datasets.arrow_dataset.Dataset:
+    return dataset.__getitem__(k)
 
 
-def repr(dataset: DatasetDict) -> None:
-	return dataset.__repr__()
+def __repr__(dataset: DatasetDict) -> None:
+    return dataset.__repr__()
 
 
-def checkvaluesfeatures(dataset: DatasetDict) -> None:
-	return dataset._check_values_features()
+def _check_values_features(dataset: DatasetDict) -> None:
+    return dataset._check_values_features()
 
 
-def checkvaluestype(dataset: DatasetDict) -> None:
-	return dataset._check_values_type()
+def _check_values_type(dataset: DatasetDict) -> None:
+    return dataset._check_values_type()
 
 
 def align_labels_with_mapping(

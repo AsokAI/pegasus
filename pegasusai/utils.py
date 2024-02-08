@@ -1,13 +1,11 @@
 import inspect
 from typing import Optional
 
-from datasets import DatasetDict
-
 
 def generate_pure_functions_from_class(
     class_type,
     object_name: str,
-    ignore_protected_functions: bool = True,
+    ignore_protected_functions: bool = False,
     function_name: Optional[str] = None,
 ) -> str:
     mapped_code = ""
@@ -17,7 +15,6 @@ def generate_pure_functions_from_class(
         ):
             if ignore_protected_functions and name.startswith("_"):
                 continue
-            clean_function_name = name.replace("_", "")
             function_signature = inspect.signature(obj)
             function_signature_str = function_signature.__str__()
             if "self" in function_signature_str:
@@ -29,11 +26,18 @@ def generate_pure_functions_from_class(
                 param_names = list(function_signature.parameters.keys())
                 param_types = list(function_signature.parameters.values())
                 for param_name, param_type in zip(param_names, param_types):
-                    function_signature_str += (
-                        param_name + ": " + param_type.annotation.__name__ + ", "
-                        if param_type.annotation != inspect._empty
-                        else param_name + ", "
-                    )
+                    if ":" in str(param_type):
+                        function_signature_str += (
+                            str(param_type) + ", "
+                            if param_type.annotation != inspect._empty
+                            else param_name + ", "
+                        )
+                    else:
+                        function_signature_str += (
+                            param_name + ": " + str(param_type) + ", "
+                            if param_type.annotation != inspect._empty
+                            else param_name + ", "
+                        )
                 function_signature_str = (
                     "("
                     + object_name
@@ -43,7 +47,7 @@ def generate_pure_functions_from_class(
                     + function_signature_str
                     + ")"
                 )
-            mapped_code += "def " + clean_function_name + function_signature_str
+            mapped_code += "def " + name + function_signature_str
             mapped_code += (
                 " -> None:\n\t"
                 if function_signature.return_annotation == inspect._empty
