@@ -1,11 +1,26 @@
 import os
 import pathlib
-from typing import Iterable, List, Optional, Union, Tuple, Dict, Any, Callable
+from typing import (
+    BinaryIO,
+    Iterable,
+    List,
+    Optional,
+    Union,
+    Tuple,
+    Dict,
+    Any,
+    Callable,
+    Sequence,
+    Iterator,
+    ForwardRef,
+)
 
 import datasets
+import huggingface_hub
 import numpy as np
+import pandas as pd
 import pyarrow
-from datasets import Dataset, Features
+from datasets import Dataset, DatasetDict, IterableDataset
 
 
 def __del__(input_dataset: Dataset) -> None:
@@ -246,7 +261,7 @@ def add_elasticsearch_index(
     index_name: Optional[str] = None,
     host: Optional[str] = None,
     port: Optional[int] = None,
-    es_client: Optional["elasticsearch.Elasticsearch"] = None,
+    es_client: Optional[ForwardRef("elasticsearch.Elasticsearch")] = None,
     es_index_name: Optional[str] = None,
     es_index_config: Optional[dict] = None,
 ) -> None:
@@ -262,7 +277,7 @@ def add_faiss_index(
     device: Optional[int] = None,
     string_factory: Optional[str] = None,
     metric_type: Optional[int] = None,
-    custom_index: Optional["faiss.Index"] = None,
+    custom_index: Optional[ForwardRef("faiss.Index")] = None,
     batch_size: int = 1000,
     train_size: Optional[int] = None,
     faiss_verbose: bool = False,
@@ -289,7 +304,7 @@ def add_faiss_index_from_external_arrays(
     device: Optional[int] = None,
     string_factory: Optional[str] = None,
     metric_type: Optional[int] = None,
-    custom_index: Optional["faiss.Index"] = None,
+    custom_index: Optional[ForwardRef("faiss.Index")] = None,
     batch_size: int = 1000,
     train_size: Optional[int] = None,
     faiss_verbose: bool = False,
@@ -532,7 +547,7 @@ def from_parquet(
 
 def from_spark(
     input_dataset: Dataset,
-    df: "pyspark.sql.DataFrame",
+    df: ForwardRef("pyspark.sql.DataFrame"),
     split: Optional[datasets.splits.NamedSplit] = None,
     features: Optional[datasets.features.features.Features] = None,
     keep_in_memory: bool = False,
@@ -555,12 +570,12 @@ def from_spark(
 
 def from_sql(
     input_dataset: Dataset,
-    sql: Union[str, "sqlalchemy.sql.Selectable"],
+    sql: Union[str, ForwardRef("sqlalchemy.sql.Selectable")],
     con: Union[
         str,
-        "sqlalchemy.engine.Connection",
-        "sqlalchemy.engine.Engine",
-        "sqlite3.Connection",
+        ForwardRef("sqlalchemy.engine.Connection"),
+        ForwardRef("sqlalchemy.engine.Engine"),
+        ForwardRef("sqlite3.Connection"),
     ],
     features: Optional[datasets.features.features.Features] = None,
     cache_dir: str = None,
@@ -887,7 +902,7 @@ def shard(
 def shuffle(
     input_dataset: Dataset,
     seed: Optional[int] = None,
-    generator: Optional[numpy.random._generator.Generator] = None,
+    generator: Optional[np.random._generator.Generator] = None,
     keep_in_memory: bool = False,
     load_from_cache_file: Optional[bool] = None,
     indices_cache_file_name: Optional[str] = None,
@@ -968,7 +983,7 @@ def to_list(input_dataset: Dataset) -> list:
 
 def to_pandas(
     input_dataset: Dataset, batch_size: Optional[int] = None, batched: bool = False
-) -> Union[pandas.core.frame.DataFrame, Iterator[pandas.core.frame.DataFrame]]:
+) -> Union[pd.core.frame.DataFrame, Iterator[pd.core.frame.DataFrame]]:
     return input_dataset.to_pandas(batch_size, batched)
 
 
@@ -1030,7 +1045,7 @@ def train_test_split(
     shuffle: bool = True,
     stratify_by_column: Optional[str] = None,
     seed: Optional[int] = None,
-    generator: Optional[numpy.random._generator.Generator] = None,
+    generator: Optional[np.random._generator.Generator] = None,
     keep_in_memory: bool = False,
     load_from_cache_file: Optional[bool] = None,
     train_indices_cache_file_name: Optional[str] = None,

@@ -1,5 +1,5 @@
 import os
-from typing import Any, Callable, Dict, List, Optional, Sequence, Union
+from typing import Callable, Dict, List, Optional, Sequence, Union
 
 import datasets
 import huggingface_hub
