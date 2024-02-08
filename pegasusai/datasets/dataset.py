@@ -23,27 +23,35 @@ import pyarrow
 from datasets import Dataset, DatasetDict, IterableDataset
 
 
-def __del__(input_dataset: Dataset) -> None:
+def dataset___del__(input_dataset: Dataset) -> None:
     return input_dataset.__del__()
 
 
-def __enter__(input_dataset: Dataset) -> None:
+def dataset___enter__(input_dataset: Dataset) -> None:
     return input_dataset.__enter__()
 
 
-def __exit__(input_dataset: Dataset, exc_type, exc_val, exc_tb) -> None:
-    return input_dataset.__exit__(exc_type, exc_val, exc_tb)
+def dataset___exit__(input_dataset: Dataset, exc_type, exc_val, exc_tb) -> None:
+    return input_dataset.__exit__(
+        exc_type=exc_type,
+        exc_val=exc_val,
+        exc_tb=exc_tb,
+    )
 
 
-def __getitem__(input_dataset: Dataset, key) -> None:
-    return input_dataset.__getitem__(key)
+def dataset___getitem__(input_dataset: Dataset, key) -> None:
+    return input_dataset.__getitem__(
+        key=key,
+    )
 
 
-def __getitems__(input_dataset: Dataset, keys: List) -> List:
-    return input_dataset.__getitems__(keys)
+def dataset___getitems__(input_dataset: Dataset, keys: List) -> List:
+    return input_dataset.__getitems__(
+        keys=keys,
+    )
 
 
-def __init__(
+def dataset___init__(
     input_dataset: Dataset,
     arrow_table: datasets.table.Table,
     info: Optional[datasets.info.DatasetInfo] = None,
@@ -51,60 +59,81 @@ def __init__(
     indices_table: Optional[datasets.table.Table] = None,
     fingerprint: Optional[str] = None,
 ) -> None:
-    return input_dataset.__init__(arrow_table, info, split, indices_table, fingerprint)
+    return input_dataset.__init__(
+        arrow_table=arrow_table,
+        info=info,
+        split=split,
+        indices_table=indices_table,
+        fingerprint=fingerprint,
+    )
 
 
-def __iter__(input_dataset: Dataset) -> None:
+def dataset___iter__(input_dataset: Dataset) -> None:
     return input_dataset.__iter__()
 
 
-def __len__(input_dataset: Dataset) -> None:
+def dataset___len__(input_dataset: Dataset) -> None:
     return input_dataset.__len__()
 
 
-def __repr__(input_dataset: Dataset) -> None:
+def dataset___repr__(input_dataset: Dataset) -> None:
     return input_dataset.__repr__()
 
 
-def __setstate__(input_dataset: Dataset, state) -> None:
-    return input_dataset.__setstate__(state)
+def dataset___setstate__(input_dataset: Dataset, state) -> None:
+    return input_dataset.__setstate__(
+        state=state,
+    )
 
 
-def _build_local_temp_path(
+def dataset__build_local_temp_path(
     input_dataset: Dataset,
     uri_or_path: str,
 ):
-    return input_dataset._build_local_temp_path(uri_or_path)
+    return input_dataset._build_local_temp_path(
+        uri_or_path=uri_or_path,
+    )
 
 
-def _check_index_is_initialized(input_dataset: Dataset, index_name: str) -> None:
-    return input_dataset._check_index_is_initialized(index_name)
+def dataset__check_index_is_initialized(
+    input_dataset: Dataset, index_name: str
+) -> None:
+    return input_dataset._check_index_is_initialized(
+        index_name=index_name,
+    )
 
 
-def _estimate_nbytes(input_dataset: Dataset) -> int:
+def dataset__estimate_nbytes(input_dataset: Dataset) -> int:
     return input_dataset._estimate_nbytes()
 
 
-def _generate_tables_from_cache_file(
+def dataset__generate_tables_from_cache_file(
     input_dataset: Dataset,
     filename: str,
 ) -> None:
-    return input_dataset._generate_tables_from_cache_file(filename)
+    return input_dataset._generate_tables_from_cache_file(
+        filename=filename,
+    )
 
 
-def _generate_tables_from_shards(
+def dataset__generate_tables_from_shards(
     input_dataset: Dataset,
-    shards: List[Dataset],
+    shards: List[ForwardRef("Dataset")],
     batch_size: int,
 ) -> None:
-    return input_dataset._generate_tables_from_shards(shards, batch_size)
+    return input_dataset._generate_tables_from_shards(
+        shards=shards,
+        batch_size=batch_size,
+    )
 
 
-def _get_cache_file_path(input_dataset: Dataset, fingerprint) -> None:
-    return input_dataset._get_cache_file_path(fingerprint)
+def dataset__get_cache_file_path(input_dataset: Dataset, fingerprint) -> None:
+    return input_dataset._get_cache_file_path(
+        fingerprint=fingerprint,
+    )
 
 
-def _get_output_signature(
+def dataset__get_output_signature(
     input_dataset: Dataset,
     dataset: "Dataset",
     collate_fn: Callable,
@@ -114,24 +143,27 @@ def _get_output_signature(
     num_test_batches: int = 20,
 ) -> None:
     return input_dataset._get_output_signature(
-        dataset,
-        collate_fn,
-        collate_fn_args,
-        cols_to_retain,
-        batch_size,
-        num_test_batches,
+        dataset=dataset,
+        collate_fn=collate_fn,
+        collate_fn_args=collate_fn_args,
+        cols_to_retain=cols_to_retain,
+        batch_size=batch_size,
+        num_test_batches=num_test_batches,
     )
 
 
-def _getitem(
+def dataset__getitem(
     input_dataset: Dataset,
     key: Union[int, slice, str, List[int], Tuple[int, ...]],
     **kwargs,
 ) -> Union[Dict, List]:
-    return input_dataset._getitem(key, kwargs)
+    return input_dataset._getitem(
+        key=key,
+        kwargs=kwargs,
+    )
 
 
-def _map_single(
+def dataset__map_single(
     input_dataset: Dataset,
     shard: "Dataset",
     function: Optional[Callable] = None,
@@ -153,39 +185,41 @@ def _map_single(
     offset: int = 0,
 ):
     return input_dataset._map_single(
-        shard,
-        function,
-        with_indices,
-        with_rank,
-        input_columns,
-        batched,
-        batch_size,
-        drop_last_batch,
-        remove_columns,
-        keep_in_memory,
-        cache_file_name,
-        writer_batch_size,
-        features,
-        disable_nullable,
-        fn_kwargs,
-        new_fingerprint,
-        rank,
-        offset,
+        shard=shard,
+        function=function,
+        with_indices=with_indices,
+        with_rank=with_rank,
+        input_columns=input_columns,
+        batched=batched,
+        batch_size=batch_size,
+        drop_last_batch=drop_last_batch,
+        remove_columns=remove_columns,
+        keep_in_memory=keep_in_memory,
+        cache_file_name=cache_file_name,
+        writer_batch_size=writer_batch_size,
+        features=features,
+        disable_nullable=disable_nullable,
+        fn_kwargs=fn_kwargs,
+        new_fingerprint=new_fingerprint,
+        rank=rank,
+        offset=offset,
     )
 
 
-def _new_dataset_with_indices(
+def dataset__new_dataset_with_indices(
     input_dataset: Dataset,
     indices_cache_file_name: Optional[str] = None,
     indices_buffer: Optional[pyarrow.lib.Buffer] = None,
     fingerprint: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset._new_dataset_with_indices(
-        indices_cache_file_name, indices_buffer, fingerprint
+        indices_cache_file_name=indices_cache_file_name,
+        indices_buffer=indices_buffer,
+        fingerprint=fingerprint,
     )
 
 
-def _push_parquet_shards_to_hub(
+def dataset__push_parquet_shards_to_hub(
     input_dataset: Dataset,
     repo_id: str,
     data_dir: str = "data",
@@ -198,38 +232,47 @@ def _push_parquet_shards_to_hub(
     embed_external_files: bool = True,
 ) -> Tuple[str, str, int, int, List[str], int]:
     return input_dataset._push_parquet_shards_to_hub(
-        repo_id,
-        data_dir,
-        split,
-        token,
-        revision,
-        create_pr,
-        max_shard_size,
-        num_shards,
-        embed_external_files,
+        repo_id=repo_id,
+        data_dir=data_dir,
+        split=split,
+        token=token,
+        revision=revision,
+        create_pr=create_pr,
+        max_shard_size=max_shard_size,
+        num_shards=num_shards,
+        embed_external_files=embed_external_files,
     )
 
 
-def _save_to_disk_single(
+def dataset__save_to_disk_single(
     input_dataset: Dataset,
     job_id: int,
     shard: "Dataset",
     fpath: str,
     storage_options: Optional[dict],
 ) -> None:
-    return input_dataset._save_to_disk_single(job_id, shard, fpath, storage_options)
+    return input_dataset._save_to_disk_single(
+        job_id=job_id,
+        shard=shard,
+        fpath=fpath,
+        storage_options=storage_options,
+    )
 
 
-def _select_contiguous(
+def dataset__select_contiguous(
     input_dataset: Dataset,
     start: int,
     length: int,
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
-    return input_dataset._select_contiguous(start, length, new_fingerprint)
+    return input_dataset._select_contiguous(
+        start=start,
+        length=length,
+        new_fingerprint=new_fingerprint,
+    )
 
 
-def _select_with_indices_mapping(
+def dataset__select_with_indices_mapping(
     input_dataset: Dataset,
     indices: Iterable,
     keep_in_memory: bool = False,
@@ -238,24 +281,28 @@ def _select_with_indices_mapping(
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset._select_with_indices_mapping(
-        indices,
-        keep_in_memory,
-        indices_cache_file_name,
-        writer_batch_size,
-        new_fingerprint,
+        indices=indices,
+        keep_in_memory=keep_in_memory,
+        indices_cache_file_name=indices_cache_file_name,
+        writer_batch_size=writer_batch_size,
+        new_fingerprint=new_fingerprint,
     )
 
 
-def add_column(
+def dataset_add_column(
     input_dataset: Dataset,
     name: str,
     column: Union[list, np.array],
     new_fingerprint: str,
 ) -> None:
-    return input_dataset.add_column(name, column, new_fingerprint)
+    return input_dataset.add_column(
+        name=name,
+        column=column,
+        new_fingerprint=new_fingerprint,
+    )
 
 
-def add_elasticsearch_index(
+def dataset_add_elasticsearch_index(
     input_dataset: Dataset,
     column: str,
     index_name: Optional[str] = None,
@@ -266,11 +313,17 @@ def add_elasticsearch_index(
     es_index_config: Optional[dict] = None,
 ) -> None:
     return input_dataset.add_elasticsearch_index(
-        column, index_name, host, port, es_client, es_index_name, es_index_config
+        column=column,
+        index_name=index_name,
+        host=host,
+        port=port,
+        es_client=es_client,
+        es_index_name=es_index_name,
+        es_index_config=es_index_config,
     )
 
 
-def add_faiss_index(
+def dataset_add_faiss_index(
     input_dataset: Dataset,
     column: str,
     index_name: Optional[str] = None,
@@ -284,20 +337,20 @@ def add_faiss_index(
     dtype=np.float32,
 ) -> None:
     return input_dataset.add_faiss_index(
-        column,
-        index_name,
-        device,
-        string_factory,
-        metric_type,
-        custom_index,
-        batch_size,
-        train_size,
-        faiss_verbose,
-        dtype,
+        column=column,
+        index_name=index_name,
+        device=device,
+        string_factory=string_factory,
+        metric_type=metric_type,
+        custom_index=custom_index,
+        batch_size=batch_size,
+        train_size=train_size,
+        faiss_verbose=faiss_verbose,
+        dtype=dtype,
     )
 
 
-def add_faiss_index_from_external_arrays(
+def dataset_add_faiss_index_from_external_arrays(
     input_dataset: Dataset,
     external_arrays: np.array,
     index_name: str,
@@ -311,30 +364,36 @@ def add_faiss_index_from_external_arrays(
     dtype=np.float32,
 ) -> None:
     return input_dataset.add_faiss_index_from_external_arrays(
-        external_arrays,
-        index_name,
-        device,
-        string_factory,
-        metric_type,
-        custom_index,
-        batch_size,
-        train_size,
-        faiss_verbose,
-        dtype,
+        external_arrays=external_arrays,
+        index_name=index_name,
+        device=device,
+        string_factory=string_factory,
+        metric_type=metric_type,
+        custom_index=custom_index,
+        batch_size=batch_size,
+        train_size=train_size,
+        faiss_verbose=faiss_verbose,
+        dtype=dtype,
     )
 
 
-def add_item(input_dataset: Dataset, item: dict, new_fingerprint: str) -> None:
-    return input_dataset.add_item(item, new_fingerprint)
+def dataset_add_item(input_dataset: Dataset, item: dict, new_fingerprint: str) -> None:
+    return input_dataset.add_item(
+        item=item,
+        new_fingerprint=new_fingerprint,
+    )
 
 
-def align_labels_with_mapping(
+def dataset_align_labels_with_mapping(
     input_dataset: Dataset, label2id: Dict, label_column: str
 ) -> "Dataset":
-    return input_dataset.align_labels_with_mapping(label2id, label_column)
+    return input_dataset.align_labels_with_mapping(
+        label2id=label2id,
+        label_column=label_column,
+    )
 
 
-def cast(
+def dataset_cast(
     input_dataset: Dataset,
     features: datasets.features.features.Features,
     batch_size: Optional[int] = 1000,
@@ -345,17 +404,17 @@ def cast(
     num_proc: Optional[int] = None,
 ) -> "Dataset":
     return input_dataset.cast(
-        features,
-        batch_size,
-        keep_in_memory,
-        load_from_cache_file,
-        cache_file_name,
-        writer_batch_size,
-        num_proc,
+        features=features,
+        batch_size=batch_size,
+        keep_in_memory=keep_in_memory,
+        load_from_cache_file=load_from_cache_file,
+        cache_file_name=cache_file_name,
+        writer_batch_size=writer_batch_size,
+        num_proc=num_proc,
     )
 
 
-def cast_column(
+def dataset_cast_column(
     input_dataset: Dataset,
     column: str,
     feature: Union[
@@ -376,28 +435,42 @@ def cast_column(
     ],
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
-    return input_dataset.cast_column(column, feature, new_fingerprint)
+    return input_dataset.cast_column(
+        column=column,
+        feature=feature,
+        new_fingerprint=new_fingerprint,
+    )
 
 
-def class_encode_column(
+def dataset_class_encode_column(
     input_dataset: Dataset, column: str, include_nulls: bool = False
 ) -> "Dataset":
-    return input_dataset.class_encode_column(column, include_nulls)
+    return input_dataset.class_encode_column(
+        column=column,
+        include_nulls=include_nulls,
+    )
 
 
-def cleanup_cache_files(input_dataset: Dataset) -> int:
+def dataset_cleanup_cache_files(input_dataset: Dataset) -> int:
     return input_dataset.cleanup_cache_files()
 
 
-def drop_index(input_dataset: Dataset, index_name: str) -> None:
-    return input_dataset.drop_index(index_name)
+def dataset_drop_index(input_dataset: Dataset, index_name: str) -> None:
+    return input_dataset.drop_index(
+        index_name=index_name,
+    )
 
 
-def export(input_dataset: Dataset, filename: str, format: str = "tfrecord") -> None:
-    return input_dataset.export(filename, format)
+def dataset_export(
+    input_dataset: Dataset, filename: str, format: str = "tfrecord"
+) -> None:
+    return input_dataset.export(
+        filename=filename,
+        format=format,
+    )
 
 
-def filter(
+def dataset_filter(
     input_dataset: Dataset,
     function: Optional[Callable] = None,
     with_indices=False,
@@ -415,30 +488,33 @@ def filter(
     desc: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset.filter(
-        function,
-        with_indices,
-        input_columns,
-        batched,
-        batch_size,
-        keep_in_memory,
-        load_from_cache_file,
-        cache_file_name,
-        writer_batch_size,
-        fn_kwargs,
-        num_proc,
-        suffix_template,
-        new_fingerprint,
-        desc,
+        function=function,
+        with_indices=with_indices,
+        input_columns=input_columns,
+        batched=batched,
+        batch_size=batch_size,
+        keep_in_memory=keep_in_memory,
+        load_from_cache_file=load_from_cache_file,
+        cache_file_name=cache_file_name,
+        writer_batch_size=writer_batch_size,
+        fn_kwargs=fn_kwargs,
+        num_proc=num_proc,
+        suffix_template=suffix_template,
+        new_fingerprint=new_fingerprint,
+        desc=desc,
     )
 
 
-def flatten(
+def dataset_flatten(
     input_dataset: Dataset, new_fingerprint: Optional[str] = None, max_depth=16
 ) -> "Dataset":
-    return input_dataset.flatten(new_fingerprint, max_depth)
+    return input_dataset.flatten(
+        new_fingerprint=new_fingerprint,
+        max_depth=max_depth,
+    )
 
 
-def flatten_indices(
+def dataset_flatten_indices(
     input_dataset: Dataset,
     keep_in_memory: bool = False,
     cache_file_name: Optional[str] = None,
@@ -449,27 +525,32 @@ def flatten_indices(
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset.flatten_indices(
-        keep_in_memory,
-        cache_file_name,
-        writer_batch_size,
-        features,
-        disable_nullable,
-        num_proc,
-        new_fingerprint,
+        keep_in_memory=keep_in_memory,
+        cache_file_name=cache_file_name,
+        writer_batch_size=writer_batch_size,
+        features=features,
+        disable_nullable=disable_nullable,
+        num_proc=num_proc,
+        new_fingerprint=new_fingerprint,
     )
 
 
-def formatted_as(
+def dataset_formatted_as(
     input_dataset: Dataset,
     type: Optional[str] = None,
     columns: Optional[List] = None,
     output_all_columns: bool = False,
     **format_kwargs,
 ) -> None:
-    return input_dataset.formatted_as(type, columns, output_all_columns, format_kwargs)
+    return input_dataset.formatted_as(
+        type=type,
+        columns=columns,
+        output_all_columns=output_all_columns,
+        format_kwargs=format_kwargs,
+    )
 
 
-def from_csv(
+def dataset_from_csv(
     input_dataset: Dataset,
     path_or_paths: Union[str, bytes, os.PathLike, List[Union[str, bytes, os.PathLike]]],
     split: Optional[datasets.splits.NamedSplit] = None,
@@ -480,11 +561,17 @@ def from_csv(
     **kwargs,
 ) -> None:
     return input_dataset.from_csv(
-        path_or_paths, split, features, cache_dir, keep_in_memory, num_proc, kwargs
+        path_or_paths=path_or_paths,
+        split=split,
+        features=features,
+        cache_dir=cache_dir,
+        keep_in_memory=keep_in_memory,
+        num_proc=num_proc,
+        kwargs=kwargs,
     )
 
 
-def from_generator(
+def dataset_from_generator(
     input_dataset: Dataset,
     generator: Callable,
     features: Optional[datasets.features.features.Features] = None,
@@ -495,11 +582,17 @@ def from_generator(
     **kwargs,
 ) -> None:
     return input_dataset.from_generator(
-        generator, features, cache_dir, keep_in_memory, gen_kwargs, num_proc, kwargs
+        generator=generator,
+        features=features,
+        cache_dir=cache_dir,
+        keep_in_memory=keep_in_memory,
+        gen_kwargs=gen_kwargs,
+        num_proc=num_proc,
+        kwargs=kwargs,
     )
 
 
-def from_json(
+def dataset_from_json(
     input_dataset: Dataset,
     path_or_paths: Union[str, bytes, os.PathLike, List[Union[str, bytes, os.PathLike]]],
     split: Optional[datasets.splits.NamedSplit] = None,
@@ -511,18 +604,18 @@ def from_json(
     **kwargs,
 ) -> None:
     return input_dataset.from_json(
-        path_or_paths,
-        split,
-        features,
-        cache_dir,
-        keep_in_memory,
-        field,
-        num_proc,
-        kwargs,
+        path_or_paths=path_or_paths,
+        split=split,
+        features=features,
+        cache_dir=cache_dir,
+        keep_in_memory=keep_in_memory,
+        field=field,
+        num_proc=num_proc,
+        kwargs=kwargs,
     )
 
 
-def from_parquet(
+def dataset_from_parquet(
     input_dataset: Dataset,
     path_or_paths: Union[str, bytes, os.PathLike, List[Union[str, bytes, os.PathLike]]],
     split: Optional[datasets.splits.NamedSplit] = None,
@@ -534,18 +627,18 @@ def from_parquet(
     **kwargs,
 ) -> None:
     return input_dataset.from_parquet(
-        path_or_paths,
-        split,
-        features,
-        cache_dir,
-        keep_in_memory,
-        columns,
-        num_proc,
-        kwargs,
+        path_or_paths=path_or_paths,
+        split=split,
+        features=features,
+        cache_dir=cache_dir,
+        keep_in_memory=keep_in_memory,
+        columns=columns,
+        num_proc=num_proc,
+        kwargs=kwargs,
     )
 
 
-def from_spark(
+def dataset_from_spark(
     input_dataset: Dataset,
     df: ForwardRef("pyspark.sql.DataFrame"),
     split: Optional[datasets.splits.NamedSplit] = None,
@@ -557,18 +650,18 @@ def from_spark(
     **kwargs,
 ) -> None:
     return input_dataset.from_spark(
-        df,
-        split,
-        features,
-        keep_in_memory,
-        cache_dir,
-        working_dir,
-        load_from_cache_file,
-        kwargs,
+        df=df,
+        split=split,
+        features=features,
+        keep_in_memory=keep_in_memory,
+        cache_dir=cache_dir,
+        working_dir=working_dir,
+        load_from_cache_file=load_from_cache_file,
+        kwargs=kwargs,
     )
 
 
-def from_sql(
+def dataset_from_sql(
     input_dataset: Dataset,
     sql: Union[str, ForwardRef("sqlalchemy.sql.Selectable")],
     con: Union[
@@ -582,10 +675,17 @@ def from_sql(
     keep_in_memory: bool = False,
     **kwargs,
 ) -> None:
-    return input_dataset.from_sql(sql, con, features, cache_dir, keep_in_memory, kwargs)
+    return input_dataset.from_sql(
+        sql=sql,
+        con=con,
+        features=features,
+        cache_dir=cache_dir,
+        keep_in_memory=keep_in_memory,
+        kwargs=kwargs,
+    )
 
 
-def from_text(
+def dataset_from_text(
     input_dataset: Dataset,
     path_or_paths: Union[str, bytes, os.PathLike, List[Union[str, bytes, os.PathLike]]],
     split: Optional[datasets.splits.NamedSplit] = None,
@@ -596,49 +696,74 @@ def from_text(
     **kwargs,
 ) -> None:
     return input_dataset.from_text(
-        path_or_paths, split, features, cache_dir, keep_in_memory, num_proc, kwargs
+        path_or_paths=path_or_paths,
+        split=split,
+        features=features,
+        cache_dir=cache_dir,
+        keep_in_memory=keep_in_memory,
+        num_proc=num_proc,
+        kwargs=kwargs,
     )
 
 
-def get_index(input_dataset: Dataset, index_name: str) -> datasets.search.BaseIndex:
-    return input_dataset.get_index(index_name)
+def dataset_get_index(
+    input_dataset: Dataset, index_name: str
+) -> datasets.search.BaseIndex:
+    return input_dataset.get_index(
+        index_name=index_name,
+    )
 
 
-def get_nearest_examples(
+def dataset_get_nearest_examples(
     input_dataset: Dataset,
     index_name: str,
     query: Union[str, np.array],
     k: int = 10,
     **kwargs,
 ) -> datasets.search.NearestExamplesResults:
-    return input_dataset.get_nearest_examples(index_name, query, k, kwargs)
+    return input_dataset.get_nearest_examples(
+        index_name=index_name,
+        query=query,
+        k=k,
+        kwargs=kwargs,
+    )
 
 
-def get_nearest_examples_batch(
+def dataset_get_nearest_examples_batch(
     input_dataset: Dataset,
     index_name: str,
     queries: Union[List[str], np.array],
     k: int = 10,
     **kwargs,
 ) -> datasets.search.BatchedNearestExamplesResults:
-    return input_dataset.get_nearest_examples_batch(index_name, queries, k, kwargs)
+    return input_dataset.get_nearest_examples_batch(
+        index_name=index_name,
+        queries=queries,
+        k=k,
+        kwargs=kwargs,
+    )
 
 
-def is_index_initialized(input_dataset: Dataset, index_name: str) -> bool:
-    return input_dataset.is_index_initialized(index_name)
+def dataset_is_index_initialized(input_dataset: Dataset, index_name: str) -> bool:
+    return input_dataset.is_index_initialized(
+        index_name=index_name,
+    )
 
 
-def iter(
+def dataset_iter(
     input_dataset: Dataset, batch_size: int, drop_last_batch: bool = False
 ) -> None:
-    return input_dataset.iter(batch_size, drop_last_batch)
+    return input_dataset.iter(
+        batch_size=batch_size,
+        drop_last_batch=drop_last_batch,
+    )
 
 
-def list_indexes(input_dataset: Dataset) -> List[str]:
+def dataset_list_indexes(input_dataset: Dataset) -> List[str]:
     return input_dataset.list_indexes()
 
 
-def load_elasticsearch_index(
+def dataset_load_elasticsearch_index(
     input_dataset: Dataset,
     index_name: str,
     es_index_name: str,
@@ -648,21 +773,31 @@ def load_elasticsearch_index(
     es_index_config: Optional[dict] = None,
 ) -> None:
     return input_dataset.load_elasticsearch_index(
-        index_name, es_index_name, host, port, es_client, es_index_config
+        index_name=index_name,
+        es_index_name=es_index_name,
+        host=host,
+        port=port,
+        es_client=es_client,
+        es_index_config=es_index_config,
     )
 
 
-def load_faiss_index(
+def dataset_load_faiss_index(
     input_dataset: Dataset,
     index_name: str,
     file: Union[str, pathlib.PurePath],
     device: Union[int, List[int], None] = None,
     storage_options: Optional[Dict] = None,
 ) -> None:
-    return input_dataset.load_faiss_index(index_name, file, device, storage_options)
+    return input_dataset.load_faiss_index(
+        index_name=index_name,
+        file=file,
+        device=device,
+        storage_options=storage_options,
+    )
 
 
-def load_from_disk(
+def dataset_load_from_disk(
     input_dataset: Dataset,
     dataset_path: str,
     fs,
@@ -670,11 +805,14 @@ def load_from_disk(
     storage_options: Optional[dict] = None,
 ):
     return input_dataset.load_from_disk(
-        dataset_path, fs, keep_in_memory, storage_options
+        dataset_path=dataset_path,
+        fs=fs,
+        keep_in_memory=keep_in_memory,
+        storage_options=storage_options,
     )
 
 
-def map(
+def dataset_map(
     input_dataset: Dataset,
     function: Optional[Callable] = None,
     with_indices: bool = False,
@@ -697,37 +835,40 @@ def map(
     desc: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset.map(
-        function,
-        with_indices,
-        with_rank,
-        input_columns,
-        batched,
-        batch_size,
-        drop_last_batch,
-        remove_columns,
-        keep_in_memory,
-        load_from_cache_file,
-        cache_file_name,
-        writer_batch_size,
-        features,
-        disable_nullable,
-        fn_kwargs,
-        num_proc,
-        suffix_template,
-        new_fingerprint,
-        desc,
+        function=function,
+        with_indices=with_indices,
+        with_rank=with_rank,
+        input_columns=input_columns,
+        batched=batched,
+        batch_size=batch_size,
+        drop_last_batch=drop_last_batch,
+        remove_columns=remove_columns,
+        keep_in_memory=keep_in_memory,
+        load_from_cache_file=load_from_cache_file,
+        cache_file_name=cache_file_name,
+        writer_batch_size=writer_batch_size,
+        features=features,
+        disable_nullable=disable_nullable,
+        fn_kwargs=fn_kwargs,
+        num_proc=num_proc,
+        suffix_template=suffix_template,
+        new_fingerprint=new_fingerprint,
+        desc=desc,
     )
 
 
-def prepare_for_task(
+def dataset_prepare_for_task(
     input_dataset: Dataset,
     task: Union[str, datasets.tasks.base.TaskTemplate],
     id: int = 0,
 ) -> "Dataset":
-    return input_dataset.prepare_for_task(task, id)
+    return input_dataset.prepare_for_task(
+        task=task,
+        id=id,
+    )
 
 
-def push_to_hub(
+def dataset_push_to_hub(
     input_dataset: Dataset,
     repo_id: str,
     config_name: str = "default",
@@ -745,64 +886,76 @@ def push_to_hub(
     embed_external_files: bool = True,
 ) -> huggingface_hub.hf_api.CommitInfo:
     return input_dataset.push_to_hub(
-        repo_id,
-        config_name,
-        set_default,
-        split,
-        commit_message,
-        commit_description,
-        private,
-        token,
-        revision,
-        branch,
-        create_pr,
-        max_shard_size,
-        num_shards,
-        embed_external_files,
+        repo_id=repo_id,
+        config_name=config_name,
+        set_default=set_default,
+        split=split,
+        commit_message=commit_message,
+        commit_description=commit_description,
+        private=private,
+        token=token,
+        revision=revision,
+        branch=branch,
+        create_pr=create_pr,
+        max_shard_size=max_shard_size,
+        num_shards=num_shards,
+        embed_external_files=embed_external_files,
     )
 
 
-def remove_columns(
+def dataset_remove_columns(
     input_dataset: Dataset,
     column_names: Union[str, List[str]],
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
-    return input_dataset.remove_columns(column_names, new_fingerprint)
+    return input_dataset.remove_columns(
+        column_names=column_names,
+        new_fingerprint=new_fingerprint,
+    )
 
 
-def rename_column(
+def dataset_rename_column(
     input_dataset: Dataset,
     original_column_name: str,
     new_column_name: str,
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset.rename_column(
-        original_column_name, new_column_name, new_fingerprint
+        original_column_name=original_column_name,
+        new_column_name=new_column_name,
+        new_fingerprint=new_fingerprint,
     )
 
 
-def rename_columns(
+def dataset_rename_columns(
     input_dataset: Dataset,
     column_mapping: Dict[str, str],
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
-    return input_dataset.rename_columns(column_mapping, new_fingerprint)
+    return input_dataset.rename_columns(
+        column_mapping=column_mapping,
+        new_fingerprint=new_fingerprint,
+    )
 
 
-def reset_format(input_dataset: Dataset) -> None:
+def dataset_reset_format(input_dataset: Dataset) -> None:
     return input_dataset.reset_format()
 
 
-def save_faiss_index(
+def dataset_save_faiss_index(
     input_dataset: Dataset,
     index_name: str,
     file: Union[str, pathlib.PurePath],
     storage_options: Optional[Dict] = None,
 ) -> None:
-    return input_dataset.save_faiss_index(index_name, file, storage_options)
+    return input_dataset.save_faiss_index(
+        index_name=index_name,
+        file=file,
+        storage_options=storage_options,
+    )
 
 
-def save_to_disk(
+def dataset_save_to_disk(
     input_dataset: Dataset,
     dataset_path: Union[str, bytes, os.PathLike],
     fs="deprecated",
@@ -812,31 +965,46 @@ def save_to_disk(
     storage_options: Optional[dict] = None,
 ) -> None:
     return input_dataset.save_to_disk(
-        dataset_path, fs, max_shard_size, num_shards, num_proc, storage_options
+        dataset_path=dataset_path,
+        fs=fs,
+        max_shard_size=max_shard_size,
+        num_shards=num_shards,
+        num_proc=num_proc,
+        storage_options=storage_options,
     )
 
 
-def search(
+def dataset_search(
     input_dataset: Dataset,
     index_name: str,
     query: Union[str, np.array],
     k: int = 10,
     **kwargs,
 ) -> datasets.search.SearchResults:
-    return input_dataset.search(index_name, query, k, kwargs)
+    return input_dataset.search(
+        index_name=index_name,
+        query=query,
+        k=k,
+        kwargs=kwargs,
+    )
 
 
-def search_batch(
+def dataset_search_batch(
     input_dataset: Dataset,
     index_name: str,
     queries: Union[List[str], np.array],
     k: int = 10,
     **kwargs,
 ) -> datasets.search.BatchedSearchResults:
-    return input_dataset.search_batch(index_name, queries, k, kwargs)
+    return input_dataset.search_batch(
+        index_name=index_name,
+        queries=queries,
+        k=k,
+        kwargs=kwargs,
+    )
 
 
-def select(
+def dataset_select(
     input_dataset: Dataset,
     indices: Iterable,
     keep_in_memory: bool = False,
@@ -845,42 +1013,54 @@ def select(
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset.select(
-        indices,
-        keep_in_memory,
-        indices_cache_file_name,
-        writer_batch_size,
-        new_fingerprint,
+        indices=indices,
+        keep_in_memory=keep_in_memory,
+        indices_cache_file_name=indices_cache_file_name,
+        writer_batch_size=writer_batch_size,
+        new_fingerprint=new_fingerprint,
     )
 
 
-def select_columns(
+def dataset_select_columns(
     input_dataset: Dataset,
     column_names: Union[str, List[str]],
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
-    return input_dataset.select_columns(column_names, new_fingerprint)
+    return input_dataset.select_columns(
+        column_names=column_names,
+        new_fingerprint=new_fingerprint,
+    )
 
 
-def set_format(
+def dataset_set_format(
     input_dataset: Dataset,
     type: Optional[str] = None,
     columns: Optional[List] = None,
     output_all_columns: bool = False,
     **format_kwargs,
 ) -> None:
-    return input_dataset.set_format(type, columns, output_all_columns, format_kwargs)
+    return input_dataset.set_format(
+        type=type,
+        columns=columns,
+        output_all_columns=output_all_columns,
+        format_kwargs=format_kwargs,
+    )
 
 
-def set_transform(
+def dataset_set_transform(
     input_dataset: Dataset,
     transform: Optional[Callable],
     columns: Optional[List] = None,
     output_all_columns: bool = False,
 ) -> None:
-    return input_dataset.set_transform(transform, columns, output_all_columns)
+    return input_dataset.set_transform(
+        transform=transform,
+        columns=columns,
+        output_all_columns=output_all_columns,
+    )
 
 
-def shard(
+def dataset_shard(
     input_dataset: Dataset,
     num_shards: int,
     index: int,
@@ -890,16 +1070,16 @@ def shard(
     writer_batch_size: Optional[int] = 1000,
 ) -> "Dataset":
     return input_dataset.shard(
-        num_shards,
-        index,
-        contiguous,
-        keep_in_memory,
-        indices_cache_file_name,
-        writer_batch_size,
+        num_shards=num_shards,
+        index=index,
+        contiguous=contiguous,
+        keep_in_memory=keep_in_memory,
+        indices_cache_file_name=indices_cache_file_name,
+        writer_batch_size=writer_batch_size,
     )
 
 
-def shuffle(
+def dataset_shuffle(
     input_dataset: Dataset,
     seed: Optional[int] = None,
     generator: Optional[np.random._generator.Generator] = None,
@@ -910,17 +1090,17 @@ def shuffle(
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset.shuffle(
-        seed,
-        generator,
-        keep_in_memory,
-        load_from_cache_file,
-        indices_cache_file_name,
-        writer_batch_size,
-        new_fingerprint,
+        seed=seed,
+        generator=generator,
+        keep_in_memory=keep_in_memory,
+        load_from_cache_file=load_from_cache_file,
+        indices_cache_file_name=indices_cache_file_name,
+        writer_batch_size=writer_batch_size,
+        new_fingerprint=new_fingerprint,
     )
 
 
-def sort(
+def dataset_sort(
     input_dataset: Dataset,
     column_names: Union[str, Sequence[str]],
     reverse: Union[bool, Sequence[bool]] = False,
@@ -933,70 +1113,92 @@ def sort(
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset.sort(
-        column_names,
-        reverse,
-        kind,
-        null_placement,
-        keep_in_memory,
-        load_from_cache_file,
-        indices_cache_file_name,
-        writer_batch_size,
-        new_fingerprint,
+        column_names=column_names,
+        reverse=reverse,
+        kind=kind,
+        null_placement=null_placement,
+        keep_in_memory=keep_in_memory,
+        load_from_cache_file=load_from_cache_file,
+        indices_cache_file_name=indices_cache_file_name,
+        writer_batch_size=writer_batch_size,
+        new_fingerprint=new_fingerprint,
     )
 
 
-def to_csv(
+def dataset_to_csv(
     input_dataset: Dataset,
     path_or_buf: Union[str, bytes, os.PathLike, BinaryIO],
     batch_size: Optional[int] = None,
     num_proc: Optional[int] = None,
     **to_csv_kwargs,
 ) -> int:
-    return input_dataset.to_csv(path_or_buf, batch_size, num_proc, to_csv_kwargs)
+    return input_dataset.to_csv(
+        path_or_buf=path_or_buf,
+        batch_size=batch_size,
+        num_proc=num_proc,
+        to_csv_kwargs=to_csv_kwargs,
+    )
 
 
-def to_dict(
+def dataset_to_dict(
     input_dataset: Dataset, batch_size: Optional[int] = None, batched="deprecated"
 ) -> Union[dict, Iterator[dict]]:
-    return input_dataset.to_dict(batch_size, batched)
+    return input_dataset.to_dict(
+        batch_size=batch_size,
+        batched=batched,
+    )
 
 
-def to_iterable_dataset(
+def dataset_to_iterable_dataset(
     input_dataset: Dataset, num_shards: Optional[int] = 1
 ) -> "IterableDataset":
-    return input_dataset.to_iterable_dataset(num_shards)
+    return input_dataset.to_iterable_dataset(
+        num_shards=num_shards,
+    )
 
 
-def to_json(
+def dataset_to_json(
     input_dataset: Dataset,
     path_or_buf: Union[str, bytes, os.PathLike, BinaryIO],
     batch_size: Optional[int] = None,
     num_proc: Optional[int] = None,
     **to_json_kwargs,
 ) -> int:
-    return input_dataset.to_json(path_or_buf, batch_size, num_proc, to_json_kwargs)
+    return input_dataset.to_json(
+        path_or_buf=path_or_buf,
+        batch_size=batch_size,
+        num_proc=num_proc,
+        to_json_kwargs=to_json_kwargs,
+    )
 
 
-def to_list(input_dataset: Dataset) -> list:
+def dataset_to_list(input_dataset: Dataset) -> list:
     return input_dataset.to_list()
 
 
-def to_pandas(
+def dataset_to_pandas(
     input_dataset: Dataset, batch_size: Optional[int] = None, batched: bool = False
 ) -> Union[pd.core.frame.DataFrame, Iterator[pd.core.frame.DataFrame]]:
-    return input_dataset.to_pandas(batch_size, batched)
+    return input_dataset.to_pandas(
+        batch_size=batch_size,
+        batched=batched,
+    )
 
 
-def to_parquet(
+def dataset_to_parquet(
     input_dataset: Dataset,
     path_or_buf: Union[str, bytes, os.PathLike, BinaryIO],
     batch_size: Optional[int] = None,
     **parquet_writer_kwargs,
 ) -> int:
-    return input_dataset.to_parquet(path_or_buf, batch_size, parquet_writer_kwargs)
+    return input_dataset.to_parquet(
+        path_or_buf=path_or_buf,
+        batch_size=batch_size,
+        parquet_writer_kwargs=parquet_writer_kwargs,
+    )
 
 
-def to_sql(
+def dataset_to_sql(
     input_dataset: Dataset,
     name: str,
     con: Union[
@@ -1008,10 +1210,15 @@ def to_sql(
     batch_size: Optional[int] = None,
     **sql_writer_kwargs,
 ) -> int:
-    return input_dataset.to_sql(name, con, batch_size, sql_writer_kwargs)
+    return input_dataset.to_sql(
+        name=name,
+        con=con,
+        batch_size=batch_size,
+        sql_writer_kwargs=sql_writer_kwargs,
+    )
 
 
-def to_tf_dataset(
+def dataset_to_tf_dataset(
     input_dataset: Dataset,
     batch_size: Optional[int] = None,
     columns: Union[str, List[str], None] = None,
@@ -1025,20 +1232,20 @@ def to_tf_dataset(
     num_test_batches: int = 20,
 ) -> None:
     return input_dataset.to_tf_dataset(
-        batch_size,
-        columns,
-        shuffle,
-        collate_fn,
-        drop_remainder,
-        collate_fn_args,
-        label_cols,
-        prefetch,
-        num_workers,
-        num_test_batches,
+        batch_size=batch_size,
+        columns=columns,
+        shuffle=shuffle,
+        collate_fn=collate_fn,
+        drop_remainder=drop_remainder,
+        collate_fn_args=collate_fn_args,
+        label_cols=label_cols,
+        prefetch=prefetch,
+        num_workers=num_workers,
+        num_test_batches=num_test_batches,
     )
 
 
-def train_test_split(
+def dataset_train_test_split(
     input_dataset: Dataset,
     test_size: Union[float, int, None] = None,
     train_size: Union[float, int, None] = None,
@@ -1055,40 +1262,51 @@ def train_test_split(
     test_new_fingerprint: Optional[str] = None,
 ) -> "DatasetDict":
     return input_dataset.train_test_split(
-        test_size,
-        train_size,
-        shuffle,
-        stratify_by_column,
-        seed,
-        generator,
-        keep_in_memory,
-        load_from_cache_file,
-        train_indices_cache_file_name,
-        test_indices_cache_file_name,
-        writer_batch_size,
-        train_new_fingerprint,
-        test_new_fingerprint,
+        test_size=test_size,
+        train_size=train_size,
+        shuffle=shuffle,
+        stratify_by_column=stratify_by_column,
+        seed=seed,
+        generator=generator,
+        keep_in_memory=keep_in_memory,
+        load_from_cache_file=load_from_cache_file,
+        train_indices_cache_file_name=train_indices_cache_file_name,
+        test_indices_cache_file_name=test_indices_cache_file_name,
+        writer_batch_size=writer_batch_size,
+        train_new_fingerprint=train_new_fingerprint,
+        test_new_fingerprint=test_new_fingerprint,
     )
 
 
-def unique(input_dataset: Dataset, column: str) -> List:
-    return input_dataset.unique(column)
+def dataset_unique(input_dataset: Dataset, column: str) -> List:
+    return input_dataset.unique(
+        column=column,
+    )
 
 
-def with_format(
+def dataset_with_format(
     input_dataset: Dataset,
     type: Optional[str] = None,
     columns: Optional[List] = None,
     output_all_columns: bool = False,
     **format_kwargs,
 ) -> None:
-    return input_dataset.with_format(type, columns, output_all_columns, format_kwargs)
+    return input_dataset.with_format(
+        type=type,
+        columns=columns,
+        output_all_columns=output_all_columns,
+        format_kwargs=format_kwargs,
+    )
 
 
-def with_transform(
+def dataset_with_transform(
     input_dataset: Dataset,
     transform: Optional[Callable],
     columns: Optional[List] = None,
     output_all_columns: bool = False,
 ) -> None:
-    return input_dataset.with_transform(transform, columns, output_all_columns)
+    return input_dataset.with_transform(
+        transform=transform,
+        columns=columns,
+        output_all_columns=output_all_columns,
+    )

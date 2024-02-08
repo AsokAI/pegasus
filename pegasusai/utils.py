@@ -5,6 +5,7 @@ from typing import Optional
 def generate_pure_functions_from_class(
     class_type,
     object_name: str,
+    function_prefix: Optional[str] = None,
     ignore_protected_functions: bool = False,
     function_name: Optional[str] = None,
 ) -> str:
@@ -47,18 +48,22 @@ def generate_pure_functions_from_class(
                     + function_signature_str
                     + ")"
                 )
-            mapped_code += "def " + name + function_signature_str
+            mapped_function_name = function_prefix + name if function_prefix else name
+            mapped_code += "def " + mapped_function_name + function_signature_str
             mapped_code += (
                 " -> None:\n\t"
                 if function_signature.return_annotation == inspect._empty
                 else ":\n\t"
             )
             param_names = list(function_signature.parameters.keys())
+            code_inside_function = ""
+            for param_name in param_names:
+                if param_name != "self":
+                    code_inside_function += f"{param_name}={param_name}, \t"
             code_inside_function = (
-                f"return {object_name}.{name}(" + ", ".join(param_names) + ")\n\n\n"
+                f"return {object_name}.{name}(" + code_inside_function + ")\n\n\n"
             )
-            code_inside_function = code_inside_function.replace("self, ", "")
-            code_inside_function = code_inside_function.replace("self", "")
             mapped_code += code_inside_function
     mapped_code = mapped_code.replace("NoneType", "None")
+    mapped_code = mapped_code.replace(" kwargs,", " **kwargs,")
     return mapped_code
