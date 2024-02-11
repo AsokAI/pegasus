@@ -124,7 +124,6 @@ def bert_tokenizer_fast_tokenize_dataset_dict(
     num_proc: Optional[int] = None,
     desc: Optional[str] = None,
 ):
-
     def tokenize_function(examples):
         return bert_tokenizer_fast___call__(
             input_tokenizer=input_tokenizer,

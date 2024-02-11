@@ -6,6 +6,7 @@ from typing import (
     Callable,
     Dict,
     ForwardRef,
+    ForwardSpec,
     Iterable,
     Iterator,
     List,
@@ -19,27 +20,27 @@ import datasets
 import huggingface_hub
 import numpy as np
 import pandas as pd
-import tensorflow as tf
 import pyarrow
+import tensorflow as tf
 from datasets import Dataset, DatasetDict, IterableDataset
 
-
 FeatureType = Union[
-        dict,
-        list,
-        tuple,
-        datasets.features.features.Value,
-        datasets.features.features.ClassLabel,
-        datasets.features.translation.Translation,
-        datasets.features.translation.TranslationVariableLanguages,
-        datasets.features.features.Sequence,
-        datasets.features.features.Array2D,
-        datasets.features.features.Array3D,
-        datasets.features.features.Array4D,
-        datasets.features.features.Array5D,
-        datasets.features.audio.Audio,
-        datasets.features.image.Image,
-    ]
+    dict,
+    list,
+    tuple,
+    datasets.features.features.Value,
+    datasets.features.features.ClassLabel,
+    datasets.features.translation.Translation,
+    datasets.features.translation.TranslationVariableLanguages,
+    datasets.features.features.Sequence,
+    datasets.features.features.Array2D,
+    datasets.features.features.Array3D,
+    datasets.features.features.Array4D,
+    datasets.features.features.Array5D,
+    datasets.features.audio.Audio,
+    datasets.features.image.Image,
+]
+
 
 def dataset___del__(input_dataset: Dataset) -> None:
     return input_dataset.__del__()
@@ -882,7 +883,7 @@ def dataset_push_to_hub(
     private: Optional[bool] = False,
     token: Optional[str] = None,
     revision: Optional[str] = None,
-    branch="deprecated",
+    branch=Optional[ForwardSpec],
     create_pr: Optional[bool] = False,
     max_shard_size: Union[str, int, None] = None,
     num_shards: Optional[int] = None,
