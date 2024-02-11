@@ -1,8 +1,18 @@
-from typing import Any, Callable, Dict, ForwardRef, List, Literal, Optional, Union, Tuple
+import numbers
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    ForwardRef,
+    List,
+    Literal,
+    Optional,
+    Tuple,
+    Union,
+)
 
 import datasets
 import evaluate
-import numbers
 from evaluate import TextClassificationEvaluator
 
 

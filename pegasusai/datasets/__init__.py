@@ -1,2 +1,2 @@
-from .dataset_dict import *
 from .dataset import *
+from .dataset_dict import *

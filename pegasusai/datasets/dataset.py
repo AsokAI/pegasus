@@ -1,18 +1,18 @@
 import os
 import pathlib
 from typing import (
+    Any,
     BinaryIO,
+    Callable,
+    Dict,
+    ForwardRef,
     Iterable,
+    Iterator,
     List,
     Optional,
-    Union,
-    Tuple,
-    Dict,
-    Any,
-    Callable,
     Sequence,
-    Iterator,
-    ForwardRef,
+    Tuple,
+    Union,
 )
 
 import datasets
