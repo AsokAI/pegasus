@@ -13,6 +13,8 @@ datasets = "^2.16.1"
 accelerate = "^0.26.1"
 black = "^24.1.1"
 ruff = "^0.2.1"
+evaluate = "^0.4.1"
+scikit-learn = "^1.4.0"
 
 [build-system]
 requires = ["poetry-core"]
