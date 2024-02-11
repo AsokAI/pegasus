@@ -19,9 +19,27 @@ import datasets
 import huggingface_hub
 import numpy as np
 import pandas as pd
+import tensorflow as tf
 import pyarrow
 from datasets import Dataset, DatasetDict, IterableDataset
 
+
+FeatureType = Union[
+        dict,
+        list,
+        tuple,
+        datasets.features.features.Value,
+        datasets.features.features.ClassLabel,
+        datasets.features.translation.Translation,
+        datasets.features.translation.TranslationVariableLanguages,
+        datasets.features.features.Sequence,
+        datasets.features.features.Array2D,
+        datasets.features.features.Array3D,
+        datasets.features.features.Array4D,
+        datasets.features.features.Array5D,
+        datasets.features.audio.Audio,
+        datasets.features.image.Image,
+    ]
 
 def dataset___del__(input_dataset: Dataset) -> None:
     return input_dataset.__del__()
@@ -417,22 +435,7 @@ def dataset_cast(
 def dataset_cast_column(
     input_dataset: Dataset,
     column: str,
-    feature: Union[
-        dict,
-        list,
-        tuple,
-        datasets.features.features.Value,
-        datasets.features.features.ClassLabel,
-        datasets.features.translation.Translation,
-        datasets.features.translation.TranslationVariableLanguages,
-        datasets.features.features.Sequence,
-        datasets.features.features.Array2D,
-        datasets.features.features.Array3D,
-        datasets.features.features.Array4D,
-        datasets.features.features.Array5D,
-        datasets.features.audio.Audio,
-        datasets.features.image.Image,
-    ],
+    feature: FeatureType,
     new_fingerprint: Optional[str] = None,
 ) -> "Dataset":
     return input_dataset.cast_column(
@@ -1230,7 +1233,7 @@ def dataset_to_tf_dataset(
     prefetch: bool = True,
     num_workers: int = 0,
     num_test_batches: int = 20,
-) -> None:
+) -> tf.data.Dataset:
     return input_dataset.to_tf_dataset(
         batch_size=batch_size,
         columns=columns,
