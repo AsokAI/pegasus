@@ -101,11 +101,11 @@ def load_tokenizer(repo_id: str, **kwargs) -> AutoTokenizer:
     return AutoTokenizer.from_pretrained(repo_id, **kwargs)
 
 
-def load_auto_feature_extractor(repo_id: str, **kwargs) -> AutoFeatureExtractor:
+def load_feature_extractor(repo_id: str, **kwargs) -> AutoFeatureExtractor:
     return AutoFeatureExtractor.from_pretrained(repo_id, **kwargs)
 
 
-def load_auto_image_processor(repo_id: str, **kwargs) -> AutoImageProcessor:
+def load_image_processor(repo_id: str, **kwargs) -> AutoImageProcessor:
     return AutoImageProcessor.from_pretrained(repo_id, **kwargs)
 
 
