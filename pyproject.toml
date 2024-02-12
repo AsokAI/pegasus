@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "pegasus"
+version = "0.1.0"
+description = ""
+authors = ["soumik12345 <19soumik.rakshit96@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "pegasusai" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+transformers = "^4.37.2"
+datasets = "^2.16.1"
+accelerate = "^0.26.1"
+black = "^24.1.1"
+ruff = "^0.2.1"
+evaluate = "^0.4.1"
+scikit-learn = "^1.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
