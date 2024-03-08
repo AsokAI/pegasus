@@ -6,7 +6,6 @@ from typing import (
     Callable,
     Dict,
     ForwardRef,
-    ForwardSpec,
     Iterable,
     Iterator,
     List,
@@ -23,6 +22,7 @@ import pandas as pd
 import pyarrow
 import tensorflow as tf
 from datasets import Dataset, DatasetDict, IterableDataset
+
 
 FeatureType = Union[
     dict,
@@ -883,7 +883,7 @@ def dataset_push_to_hub(
     private: Optional[bool] = False,
     token: Optional[str] = None,
     revision: Optional[str] = None,
-    branch=Optional[ForwardSpec],
+    branch=None,
     create_pr: Optional[bool] = False,
     max_shard_size: Union[str, int, None] = None,
     num_shards: Optional[int] = None,
