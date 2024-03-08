@@ -1,9 +1,52 @@
+import importlib
+from functools import partial
+from types import ModuleType
 from typing import Any, Callable, Dict, ForwardRef, List, Optional, Tuple, Union
 
 import datasets
 import torch
+import evaluate
 import transformers
+from pydantic import BaseModel
 from transformers import Trainer
+
+
+class Transform(BaseModel):
+    function: str
+    kwargs: Dict[str, Any]
+
+
+class MetricConfig(BaseModel):
+    metric_name: str
+    logit_transforms: List[Transform]
+    label_transforms: List[Transform]
+
+
+def get_callable(transform: Transform) -> Tuple[ModuleType, Callable]:
+    parent_module_name = transform.function.split(".")[0]
+    parent_module = importlib.import_module(parent_module_name)
+    function = eval(transform.function)
+    partial_function_with_kwargs = partial(function, **transform.kwargs)
+    return parent_module, partial_function_with_kwargs
+
+
+class Evaluator:
+    def __init__(self, metric_config: MetricConfig):
+        self.metric = evaluate.load(metric_config.metric_name)
+        self.logit_transforms = [
+            get_callable(transform) for transform in metric_config.logit_transforms
+        ]
+        self.label_transforms = [
+            get_callable(transform) for transform in metric_config.label_transforms
+        ]
+
+    def compute(self, eval_pred):
+        logits, labels = eval_pred
+        for transform in self.logit_transforms:
+            logits = transform(logits)
+        for transform in self.label_transforms:
+            labels = transform(labels)
+        return self.metric.compute(predictions=logits, references=labels)
 
 
 def trainer___init__(
@@ -25,9 +68,7 @@ def trainer___init__(
     model_init: Optional[
         Callable[[], transformers.modeling_utils.PreTrainedModel]
     ] = None,
-    compute_metrics: Optional[
-        Callable[[transformers.trainer_utils.EvalPrediction], Dict]
-    ] = None,
+    metric_config: Optional[MetricConfig] = None,
     callbacks: Optional[List[transformers.trainer_callback.TrainerCallback]] = None,
     optimizers: Tuple[
         torch.optim.optimizer.Optimizer, torch.optim.lr_scheduler.LambdaLR
@@ -36,6 +77,7 @@ def trainer___init__(
         Callable[[torch.Tensor, torch.Tensor], torch.Tensor]
     ] = None,
 ) -> None:
+    evaluator = Evaluator(metric_config)
     return trainer.__init__(
         model=model,
         args=args,
@@ -44,7 +86,7 @@ def trainer___init__(
         eval_dataset=eval_dataset,
         tokenizer=tokenizer,
         model_init=model_init,
-        compute_metrics=compute_metrics,
+        compute_metrics=evaluator.compute,
         callbacks=callbacks,
         optimizers=optimizers,
         preprocess_logits_for_metrics=preprocess_logits_for_metrics,
